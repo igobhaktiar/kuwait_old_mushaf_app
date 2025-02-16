@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "54898258404",
+    "project_id": "kuwait-quran-app",
+    "storage_bucket": "kuwait-quran-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54898258404:android:794bfa07942033d58897f1",
+        "android_client_info": {
+          "package_name": "kw.gov.qsa.quranapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54898258404-75cv72uomvt7ubjsfcubm8akj20av6vn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAscm_U_oGWsoBlf8WxeXjLJ-qETQ152u4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54898258404-75cv72uomvt7ubjsfcubm8akj20av6vn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "54898258404-s0bui71r02k3ajmjlphotg78m91i3dql.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kw.gov.qsa.quranapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+{
+    "fontname": "louts-shamy-Bold",
+    "color": {
+        "ncs_name": "DeviceCMYK",
+        "ncolor": [
+            0,
+            1,
+            1,
+            0
+        ]
+    },
+    "chars": [
+        {
+            "x0": 647.3191,
+            "x1": 651.0591000000001,
+            "y0": 450.2421,
+            "y1": 461.2421,
+            "size": 11.0,
+            "upright": true,
+            "fontname": "louts-shamy-Bold",
+            "unicode": "\u0645",
+            "color": {
+                "ncs_name": "DeviceCMYK",
+                "ncolor": [
+                    0,
+                    1,
+                    1,
+                    0
+                ]
+            },
+            "line": 18,
+            "add_tab": false,
+            "add_space": false
+        }
+    ]
+}
