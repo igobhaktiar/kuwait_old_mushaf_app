@@ -13,7 +13,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="مصحف الكويت">
         <activity
-            android:name="com.ryanheise.audioservice.AudioServiceActivity"
+            android:name="kw.gov.ksa.qeerat_moshaf_kwait.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
             android:hardwareAccelerated="true"
