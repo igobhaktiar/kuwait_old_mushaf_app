@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "quran_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "quran_app (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "quran_app (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "convex_bottom_bar-3.1.0+1",
+            "cwd": "convex_bottom_bar-3.1.0+1",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "convex_bottom_bar-3.1.0+1 (profile mode)",
+            "cwd": "convex_bottom_bar-3.1.0+1",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "convex_bottom_bar-3.1.0+1 (release mode)",
+            "cwd": "convex_bottom_bar-3.1.0+1",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

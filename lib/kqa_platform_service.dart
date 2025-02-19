@@ -5,9 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 class PlatformService {
-  static const MethodChannel _channel =
-  MethodChannel('kw.gov.qsa.quranapp.kqaplatformchannel');
-
+  static const MethodChannel _channel = MethodChannel('kw.gov.qsa.quranapp.kqaplatformchannel');
 
   static Future<Uint8List?> getAssetFile(String packageName, String filename) async {
     try {
@@ -24,9 +22,7 @@ class PlatformService {
     return null;
   }
 
-
-  static Future<dynamic> getAssetsJson(
-      String packageName, String filename) async {
+  static Future<dynamic> getAssetsJson(String packageName, String filename) async {
     try {
       final Uint8List? data = await getAssetFile(packageName, filename);
       if (data != null) {
@@ -40,8 +36,7 @@ class PlatformService {
     return null; // Return null if there's an error or data doesn't exist
   }
 
-  static Future<File?> getAssetFileAudio(
-      String packageName, String filename, String tempFilename) async {
+  static Future<File?> getAssetFileAudio(String packageName, String filename, String tempFilename) async {
     try {
       final byteData = await _channel.invokeMethod('getAssetFileContent', {
         'packageName': packageName,
@@ -50,11 +45,9 @@ class PlatformService {
       if (byteData != null) {
         final buffer = byteData.buffer;
         final Directory tempDir = await getTemporaryDirectory();
-        final String filePath =
-            '${tempDir.path}/$tempFilename'; // Use tempFilename here
+        final String filePath = '${tempDir.path}/$tempFilename'; // Use tempFilename here
         final File file = File(filePath);
-        await file.writeAsBytes(
-            buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+        await file.writeAsBytes(buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
         return file;
       }
     } catch (e) {

@@ -38,15 +38,13 @@ class AppStrings {
 
   static const String lastDefaultPageDowloaded = "lastDefaultPageDowloaded";
 
-  static const String besmellah =
-      "https://quranapp.mykuwaitnet.net/media/reciter_sound/2/Bader Al Ali/001/001-01.mp3";
+  static const String besmellah = "https://quranapp.mykuwaitnet.net/media/reciter_sound/2/Bader Al Ali/001/001-01.mp3";
 
   static const String isNewUserKey = "isNewUser";
 
   static const String lastAccessedPageKey = "lastAccessedPage";
 
-  static const String showBookmarksOnStartEnabledKey =
-      "showBookmarksOnStartEnabled";
+  static const String showBookmarksOnStartEnabledKey = "showBookmarksOnStartEnabled";
 
   static const String savedReciterKey = "savedReciter";
 
@@ -63,8 +61,7 @@ class AppStrings {
   static String analytcsScreenMenuScreens = "Menu Screens";
   static String analytcsEventShiekhFilesDownload = "shiekhFilesDownload";
   static String analytcsEventShiekhFilesDeleted = "shiekhFilesDeleted";
-  static String analytcsEventTenReadingsFilesDeleted =
-      "ten-ReadingsFilesDeleted";
+  static String analytcsEventTenReadingsFilesDeleted = "ten-ReadingsFilesDeleted";
   static String analytcsEventTenReadingsJuzDownload = "tenReadingsJuzDownload";
   static String analytcsEventAddBookmark = "addBookmark";
   static String analytcsEventAddFavourite = "addFavourite";
@@ -99,8 +96,8 @@ class AppStrings {
     buffer = buffer.length == 1
         ? "Q_00$buffer.png"
         : buffer.length == 2
-        ? "Q_0$buffer.png"
-        : "Q_$buffer.png";
+            ? "Q_0$buffer.png"
+            : "Q_$buffer.png";
     return buffer;
   }
 
