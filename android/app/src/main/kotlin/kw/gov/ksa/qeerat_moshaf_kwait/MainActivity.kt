@@ -35,13 +35,18 @@ class MainActivity : AudioServiceActivity() {
 
     private fun getAssetFileContent(packageName: String?, filename: String): ByteArray? {
         return try {
-            packageName?.let {
-                val packageContext = applicationContext.createPackageContext(it, 0)
-                val assetFilePath = filename
-                Log.d("MainActivity", "Attempting to open asset file: $assetFilePath")
-                packageContext.assets.open(assetFilePath).use { inputStream ->
-                    inputStream.readBytes()
-                }
+//            packageName?.let {
+//                val packageContext = applicationContext.createPackageContext(it, 0)
+//                val assetFilePath = filename
+//                Log.d("MainActivity", "Attempting to open asset file: $assetFilePath")
+//                packageContext.assets.open(assetFilePath).use { inputStream ->
+//                    inputStream.readBytes()
+//                }
+//            }
+            val assetFilePath = filename
+            Log.d("MainActivity", "Attempting to open asset file: $assetFilePath")
+            assets.open(assetFilePath).use { inputStream ->
+                inputStream.readBytes()
             }
         } catch (e: Exception) {
             e.printStackTrace()

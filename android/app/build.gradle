@@ -3,11 +3,12 @@ plugins {
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
 
 }
 
 android {
-    namespace = "com.quranapp.quran_app"
+    namespace = "kw.gov.qsa.quranapp"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -22,7 +23,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.quranapp.quran_app"
+        applicationId = "kw.gov.qsa.quranapp"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -38,8 +39,20 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+
+    assetPacks = [":assets_pack_install_time"]
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+        
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
+    implementation project(":assets_pack_install_time")
+    implementation "com.google.android.play:asset-delivery:2.2.2"
+// For Kotlin use asset-delivery-ktx
+    implementation "com.google.android.play:asset-delivery-ktx:2.2.2"
+    implementation 'androidx.work:work-runtime-ktx:2.7.0' //added salem for android 12
 }

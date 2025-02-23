@@ -373,7 +373,6 @@ class OrdinaryMoshafImage extends StatelessWidget {
   Widget build(BuildContext context) {
     log("5254 Waleed widget.index: ${widget.index}");
     if (!AppStrings.myDebugMode) {
-      log('5254 Waleed loadImageAssetPackAsFile: ${AppStrings.getAssetPngBlackPagePath2(widget.index + 1)}');
       return FutureBuilder<Uint8List>(
         future: loadImageAssetPackAsFile("all_black_pages/${AppStrings.getAssetPngBlackPagePath2(widget.index + 1)}", "temppage.png"),
         builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
