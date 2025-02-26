@@ -9,52 +9,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/core/data_sources/all_ayat_with_tashkeel.dart';
-import 'package:quran_app/core/data_sources/all_ayat_without_tashkeel.dart'
-    show allAyatWithoutTashkelMapList;
-import 'package:quran_app/core/data_sources/hizb_fihris.dart'
-    show hizbFihrisJson;
-import 'package:quran_app/core/data_sources/juz_fihris.dart'
-    show ajzaaFihrisJson;
-import 'package:quran_app/core/data_sources/swar_fihris.dart'
-    show swarFihrisJson;
+import 'package:quran_app/core/data_sources/all_ayat_without_tashkeel.dart' show allAyatWithoutTashkelMapList;
+import 'package:quran_app/core/data_sources/hizb_fihris.dart' show hizbFihrisJson;
+import 'package:quran_app/core/data_sources/juz_fihris.dart' show ajzaaFihrisJson;
+import 'package:quran_app/core/data_sources/swar_fihris.dart' show swarFihrisJson;
 import 'package:quran_app/core/enums/moshaf_type_enum.dart';
 import 'package:quran_app/core/utils/app_strings.dart';
 import 'package:quran_app/core/utils/constants.dart';
-import 'package:quran_app/features/bookmarks/presentation/screens/favourites_screen.dart'
-    show FavouritesScreen;
-import 'package:quran_app/features/essential_moshaf_feature/data/models/ayat_swar_models.dart'
-    show AyahModel;
-import 'package:quran_app/features/essential_moshaf_feature/data/models/fihris_models.dart'
-    show HizbFihrisModel, JuzFihrisModel, SurahFihrisModel;
+import 'package:quran_app/features/bookmarks/presentation/screens/favourites_screen.dart' show FavouritesScreen;
+import 'package:quran_app/features/essential_moshaf_feature/data/models/ayat_swar_models.dart' show AyahModel;
+import 'package:quran_app/features/essential_moshaf_feature/data/models/fihris_models.dart' show HizbFihrisModel, JuzFihrisModel, SurahFihrisModel;
 import 'package:quran_app/features/externalLibraries/presentation/screens/external_libraries_screen.dart';
-import 'package:quran_app/features/khatmat/presentation/screens/khatmat/khatmat_screen.dart'
-    show KhatmatScreen;
-import 'package:quran_app/features/main/presentation/screens/quran_fihris_screen.dart'
-    show FihrisScreen;
-import 'package:quran_app/features/main/presentation/screens/settings_screens/settings_screen.dart'
-    show SettingScreen;
+import 'package:quran_app/features/khatmat/presentation/screens/khatmat/khatmat_screen.dart' show KhatmatScreen;
+import 'package:quran_app/features/main/presentation/screens/quran_fihris_screen.dart' show FihrisScreen;
+import 'package:quran_app/features/main/presentation/screens/settings_screens/settings_screen.dart' show SettingScreen;
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'essential_moshaf_state.dart';
 
 class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
-  EssentialMoshafCubit({required this.sharedPreferences})
-      : super(EssentialMoshafInitial());
+  EssentialMoshafCubit({required this.sharedPreferences}) : super(EssentialMoshafInitial());
   final SharedPreferences sharedPreferences;
 
-  List<SurahFihrisModel> get swarListForFihris =>
-      swarFihrisJson.map((e) => SurahFihrisModel.fromJson(e)).toList();
-  List<JuzFihrisModel> get ajzaaListForFihris =>
-      ajzaaFihrisJson.map((e) => JuzFihrisModel.fromJson(e)).toList();
-  List<HizbFihrisModel> get ahzabListForFihris =>
-      hizbFihrisJson.map((e) => HizbFihrisModel.fromJson(e)).toList();
-  List<AyahModel> get allAyat => allAyatWithoutTashkelMapList
-      .map((ayah) => AyahModel.fromJson(ayah))
-      .toList();
-  List<AyahModel> get allAyatWithTashkeelList =>
-      allAyatWithTashkeel.map((ayah) => AyahModel.fromJson(ayah)).toList();
-  int get lastAccessedPage =>
-      sharedPreferences.getInt(AppStrings.lastAccessedPageKey) ?? 0;
+  List<SurahFihrisModel> get swarListForFihris => swarFihrisJson.map((e) => SurahFihrisModel.fromJson(e)).toList();
+  List<JuzFihrisModel> get ajzaaListForFihris => ajzaaFihrisJson.map((e) => JuzFihrisModel.fromJson(e)).toList();
+  List<HizbFihrisModel> get ahzabListForFihris => hizbFihrisJson.map((e) => HizbFihrisModel.fromJson(e)).toList();
+  List<AyahModel> get allAyat => allAyatWithoutTashkelMapList.map((ayah) => AyahModel.fromJson(ayah)).toList();
+  List<AyahModel> get allAyatWithTashkeelList => allAyatWithTashkeel.map((ayah) => AyahModel.fromJson(ayah)).toList();
+  int get lastAccessedPage => sharedPreferences.getInt(AppStrings.lastAccessedPageKey) ?? 0;
 
   static EssentialMoshafCubit get(context) => BlocProvider.of(context);
 
@@ -63,8 +45,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
   ScrollController navigateBySurahController = ScrollController();
   ScrollController navigateByPageNumberController = ScrollController();
   ScrollController navigateByQuarterController = ScrollController();
-  ScrollController quranPageLandscapeVerticalScrollController =
-      ScrollController();
+  ScrollController quranPageLandscapeVerticalScrollController = ScrollController();
 
   bool isToShowAppBar = false;
   bool isToShowBottomSheet = false;
@@ -111,8 +92,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
     listenToScrollControllers();
     currentSurahModel = swarListForFihris.first;
     firstAyahInCurrentPage = allAyat.first;
-    Future.delayed(const Duration(milliseconds: 100),
-        () => scheduleMicrotask(() => navigateToLastAccessedPage()));
+    Future.delayed(const Duration(milliseconds: 100), () => scheduleMicrotask(() => navigateToLastAccessedPage()));
   }
 
   ///* Method to listen to the page controller when the cubit initializes [required for proper implementation]
@@ -128,11 +108,9 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
   void toggleRootView() {
     isShowFihris = !isShowFihris;
     if (isShowFihris) {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-          overlays: SystemUiOverlay.values);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     } else {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-          overlays: [SystemUiOverlay.bottom]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     }
     emit(ToggleRootView(isShowFihris));
     FirebaseAnalytics.instance.logScreenView(
@@ -150,8 +128,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
     }
 
     if (!isToShowBottomSheet) {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-          overlays: isToShowAppBar ? SystemUiOverlay.values : []);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: isToShowAppBar ? SystemUiOverlay.values : []);
     }
 
     if (isToShowBottomSheet && !isToShowAppBar) {
@@ -186,8 +163,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
 
   showBottomSheetSections() {
     isToShowBottomSheet = true;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     emit(FlyingWidgetsVisibleState(true));
   }
 
@@ -238,18 +214,10 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
       isShowNavigateByPage = true;
     }
     currentPage = newPageNumber - 1;
-    firstAyahInCurrentPage = allAyat
-        .where((ayah) => ayah.page == math.min(currentPage + 1, 604))
-        .toList()
-        .first;
+    firstAyahInCurrentPage = allAyat.where((ayah) => ayah.page == math.min(currentPage + 1, 604)).toList().first;
 
     //detect current hizb and current juz.
-    currentQuarter = allAyat
-        .where((ayah) => ayah.page == math.min(currentPage + 1, 604))
-        .toList()
-        .map((ayah) => ayah.hizbQuarter as int)
-        .toList()
-        .last;
+    currentQuarter = allAyat.where((ayah) => ayah.page == math.min(currentPage + 1, 604)).toList().map((ayah) => ayah.hizbQuarter as int).toList().last;
 
     currentQuarter = math.min(currentQuarter, 240);
     debugPrint("currentQuarter=$currentQuarter");
@@ -264,22 +232,13 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
     currentJuz = math.min(currentJuz, 30);
     debugPrint("currentJuz: $currentJuz");
 
-    currentJuzText = ajzaaListForFihris
-        .where((element) => element.number == currentJuz)
-        .toList()
-        .first
-        .name
-        .toString();
+    currentJuzText = ajzaaListForFihris.where((element) => element.number == currentJuz).toList().first.name.toString();
     debugPrint("currentJuz: $currentJuz");
 
     // let this be induced from the [pageNumber] value.
 
-    final swarInNewPageNumber = swarListForFihris
-        .where((surah) => surah.page! == newPageNumber)
-        .toList();
-    final swarBeforeNewPageNumber = swarListForFihris
-        .where((surah) => surah.page! <= newPageNumber)
-        .toList();
+    final swarInNewPageNumber = swarListForFihris.where((surah) => surah.page! == newPageNumber).toList();
+    final swarBeforeNewPageNumber = swarListForFihris.where((surah) => surah.page! <= newPageNumber).toList();
 
     currentSurahModel = swarInNewPageNumber.isNotEmpty
         ? swarInNewPageNumber.first
@@ -291,9 +250,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
     // when we know the number of the surah and the width of surah name widget we can jump to it [done]
     final pixelsToScrollSurahs = (currentSurahInt - 1) * surahWidgetWidth;
     if (navigateBySurahController.hasClients) {
-      navigateBySurahController.animateTo(pixelsToScrollSurahs,
-          duration: AppConstants.enteringAnimationDuration,
-          curve: Curves.easeOut);
+      navigateBySurahController.animateTo(pixelsToScrollSurahs, duration: AppConstants.enteringAnimationDuration, curve: Curves.easeOut);
     }
     // when we know the page number and the width of pageNuber widget we can jump to it [done]
     // double pixelsToScrollPages =
@@ -301,14 +258,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
     //         pageNumberWidgetWidth *
     //         22;
     if (navigateByPageNumberController.hasClients) {
-      navigateByPageNumberController.animateTo(
-          (navigateByPageNumberController.position.maxScrollExtent /
-                      301 *
-                      currentPage +
-                  44) /
-              2,
-          duration: AppConstants.enteringAnimationDuration,
-          curve: Curves.easeOut);
+      navigateByPageNumberController.animateTo((navigateByPageNumberController.position.maxScrollExtent / 301 * currentPage + 44) / 2, duration: AppConstants.enteringAnimationDuration, curve: Curves.easeOut);
     }
     if (quranPageLandscapeVerticalScrollController.hasClients) {
       quranPageLandscapeVerticalScrollController.jumpTo(
@@ -336,11 +286,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
 
   ///* method to navigate by hizb quarter
   void navigateToQuarter(int newQuarter) {
-    int quarterFirstPage = allAyat
-        .where((ayah) => ayah.hizbQuarter == newQuarter)
-        .toList()
-        .first
-        .page!;
+    int quarterFirstPage = allAyat.where((ayah) => ayah.hizbQuarter == newQuarter).toList().first.page!;
     navigateToPage(quarterFirstPage);
   }
 
@@ -353,8 +299,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
   void changeBottomNavBar(int index) {
     emit(EssentialMoshafInitial());
     homeViewBottomNavIndex = index;
-    FirebaseAnalytics.instance
-        .logScreenView(screenName: mainViewbottomScreens[index].toString());
+    FirebaseAnalytics.instance.logScreenView(screenName: mainViewbottomScreens[index].toString());
 
     emit(ChangeBottomNavState());
   }
@@ -423,9 +368,7 @@ class EssentialMoshafCubit extends Cubit<EssentialMoshafState> {
   }
 
   int? getSurahNumberFromItsName(String surahNameEnglish) {
-    var resultList = swarListForFihris
-        .where((surahInFihris) => surahInFihris.englishName == surahNameEnglish)
-        .toList();
+    var resultList = swarListForFihris.where((surahInFihris) => surahInFihris.englishName == surahNameEnglish).toList();
     if (resultList.isNotEmpty) {
       return resultList.first.number;
     } else {

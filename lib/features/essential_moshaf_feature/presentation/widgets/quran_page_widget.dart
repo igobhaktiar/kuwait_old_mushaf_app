@@ -239,9 +239,9 @@ class _QuranPageWidgetState extends State<QuranPageWidget> {
                   if (!context.read<EssentialMoshafCubit>().isInTenReadingsMode()) {
                     context.read<BottomSheetCubit>().changeViewIndex(1);
                   }
-                  // print("highlight.ayaId= ${highlight.ayaId}");
-                  // print("highlight.suraId= ${highlight.segs}");
-                  // print("highlight.ayaId= ${highlight.suraId}");
+                  // // print("highlight.ayaId= ${highlight.ayaId}");
+                  // // print("highlight.suraId= ${highlight.segs}");
+                  // // print("highlight.ayaId= ${highlight.suraId}");
                 },
                 onLongPress: () {
                   if (context.read<EssentialMoshafCubit>().isInTenReadingsMode()) {

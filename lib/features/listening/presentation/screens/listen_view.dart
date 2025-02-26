@@ -101,10 +101,7 @@ class _ListenViewState extends State<ListenView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const ViewDashIndicator(),
-            _buildListenOptionsHeader(
-                title: context.translate.please_choose_reciter,
-                withNoConfirm: true,
-                onConfirmed: () {}),
+            _buildListenOptionsHeader(title: context.translate.please_choose_reciter, withNoConfirm: true, onConfirmed: () {}),
             const SizedBox(
               height: 10,
             ),
@@ -113,32 +110,18 @@ class _ListenViewState extends State<ListenView> {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    color: cubit.currentReciter == reciter
-                        ? (context.theme.brightness == Brightness.dark
-                            ? AppColors.selectedShiekhBgDark
-                            : AppColors.selectedListTileColor)
-                        : Colors.transparent,
+                    color: cubit.currentReciter == reciter ? (context.theme.brightness == Brightness.dark ? AppColors.selectedShiekhBgDark : AppColors.selectedListTileColor) : Colors.transparent,
                     child: ListTile(
                       onTap: () {
                         ListeningCubit.get(context).setCurrentReciter(reciter);
                       },
                       dense: true,
                       title: Text(
-                        context.translate.localeName == AppStrings.arabicCode
-                            ? reciter.nameArabic.toString()
-                            : reciter.nameEnglish.toString(),
+                        context.translate.localeName == AppStrings.arabicCode ? reciter.nameArabic.toString() : reciter.nameEnglish.toString(),
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontSize: 14,
-                          color: cubit.currentReciter == reciter
-                              ? (context.theme.brightness == Brightness.dark
-                                  ? Colors.white
-                                  : AppColors.activeButtonColor)
-                              : (context.theme.brightness == Brightness.dark
-                                  ? Colors.white
-                                  : AppColors.inactiveColor),
-                          fontWeight: cubit.currentReciter == reciter
-                              ? FontWeight.bold
-                              : FontWeight.w600,
+                          color: cubit.currentReciter == reciter ? (context.theme.brightness == Brightness.dark ? Colors.white : AppColors.activeButtonColor) : (context.theme.brightness == Brightness.dark ? Colors.white : AppColors.inactiveColor),
+                          fontWeight: cubit.currentReciter == reciter ? FontWeight.bold : FontWeight.w600,
                         ),
                       ),
                       leading: CircleAvatar(
@@ -152,26 +135,18 @@ class _ListenViewState extends State<ListenView> {
 
                             final playing = playerState == null
                                 ? false
-                                : playerState.processingState ==
-                                        ProcessingState.completed
+                                : playerState.processingState == ProcessingState.completed
                                     ? false
                                     : playerState.playing;
                             return SvgPicture.asset(
-                              cubit.currentReciter == reciter && playing
-                                  ? AppAssets.pause
-                                  : AppAssets.outlinePlay,
-                              color: context.theme.brightness == Brightness.dark
-                                  ? Colors.white
-                                  : null,
+                              cubit.currentReciter == reciter && playing ? AppAssets.pause : AppAssets.outlinePlay,
+                              color: context.theme.brightness == Brightness.dark ? Colors.white : null,
                               height: 20,
                             );
                           }),
                     ),
                   ),
-                  AppConstants.appDivider(context,
-                      color: context.theme.brightness == Brightness.dark
-                          ? AppColors.shiekhDividerDark
-                          : null),
+                  AppConstants.appDivider(context, color: context.theme.brightness == Brightness.dark ? AppColors.shiekhDividerDark : null),
                 ],
               )
           ],
@@ -220,8 +195,7 @@ class _ListenViewState extends State<ListenView> {
           child: Center(
             child: Text(
               title,
-              style: context.textTheme.bodyMedium!
-                  .copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+              style: context.textTheme.bodyMedium!.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
             ),
           ),
         ),
@@ -236,8 +210,7 @@ class _ListenViewState extends State<ListenView> {
                   },
             child: Text(
               context.translate.confirm,
-              style: context.textTheme.bodySmall!
-                  .copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+              style: context.textTheme.bodySmall!.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
             ),
           ),
         ),
@@ -247,9 +220,7 @@ class _ListenViewState extends State<ListenView> {
 
   Card _buildSectionRepeatControls() {
     return Card(
-      color: context.theme.brightness == Brightness.dark
-          ? AppColors.cardBgDark
-          : AppColors.tabBackground,
+      color: context.theme.brightness == Brightness.dark ? AppColors.cardBgDark : AppColors.tabBackground,
       child: Column(
         children: [
           Row(
@@ -259,17 +230,14 @@ class _ListenViewState extends State<ListenView> {
                   child: InkWell(
                     onTap: () {
                       setState(() {
-                        currentSection =
-                            sectionTypesStrings(context).indexOf(stringType);
+                        currentSection = sectionTypesStrings(context).indexOf(stringType);
                       });
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                          color: stringType ==
-                                  sectionTypesStrings(context)[currentSection]
+                          color: stringType == sectionTypesStrings(context)[currentSection]
                               ? context.theme.brightness == Brightness.dark
                                   ? AppColors.activeTypeBgDark
                                   : AppColors.activeButtonColor
@@ -278,8 +246,7 @@ class _ListenViewState extends State<ListenView> {
                       child: Text(
                         stringType,
                         style: TextStyle(
-                            color: stringType ==
-                                    sectionTypesStrings(context)[currentSection]
+                            color: stringType == sectionTypesStrings(context)[currentSection]
                                 ? AppColors.white
                                 : context.theme.brightness == Brightness.dark
                                     ? AppColors.border
@@ -295,20 +262,16 @@ class _ListenViewState extends State<ListenView> {
             AyatRangeSelectorWidget(
                 savedSelectedAyat: ayatForCustomRange,
                 savedSelectedSwar: swarForCustomRange,
-                onCustomRangeChanged:
-                    (List<SurahFihrisModel?> swar, List<int?> ayat) {
+                onCustomRangeChanged: (List<SurahFihrisModel?> swar, List<int?> ayat) {
                   setState(() {
                     swarForCustomRange = swar;
                     ayatForCustomRange = ayat;
                   });
-                  debugPrint(
-                      "customRange:swar=${swarForCustomRange.map((e) => e == null ? "--" : e.englishName.toString()).toList()},ayat=$ayatForCustomRange ");
+                  debugPrint("customRange:swar=${swarForCustomRange.map((e) => e == null ? "--" : e.englishName.toString()).toList()},ayat=$ayatForCustomRange ");
                 }),
           if (currentSection != 0)
             CountControlWidget(
-              title: context.translate.localeName == AppStrings.arabicCode
-                  ? "${currentSection != 2 ? "رقم" : ''} ال${sectionTypesStrings(context)[currentSection]}"
-                  : "${sectionTypesStrings(context)[currentSection]} number",
+              title: context.translate.localeName == AppStrings.arabicCode ? "${currentSection != 2 ? "رقم" : ''} ال${sectionTypesStrings(context)[currentSection]}" : "${sectionTypesStrings(context)[currentSection]} number",
               value: sectionTypesValues[currentSection],
               dropDownWidget: currentSection == 0
                   ? null
@@ -316,37 +279,25 @@ class _ListenViewState extends State<ListenView> {
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
-                        color: context.theme.brightness == Brightness.dark
-                            ? AppColors.cardBgActiveDark
-                            : AppColors.beige,
+                        color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : AppColors.beige,
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: dropDowns[currentSection]),
               onIncrement: () {
                 if (
                     // for pages[1-604]
-                    currentSection == 1 &&
-                            sectionTypesValues[currentSection] < 604 ||
+                    currentSection == 1 && sectionTypesValues[currentSection] < 604 ||
                         // for swar[1-114]
-                        currentSection == 2 &&
-                            sectionTypesValues[currentSection] < 114 ||
+                        currentSection == 2 && sectionTypesValues[currentSection] < 114 ||
                         // for hizbQuraters[1-240]
-                        currentSection == 3 &&
-                            sectionTypesValues[currentSection] < 60 ||
+                        currentSection == 3 && sectionTypesValues[currentSection] < 60 ||
                         // for hizbs[1-60]
-                        currentSection == 4 &&
-                            sectionTypesValues[currentSection] < 30) {
+                        currentSection == 4 && sectionTypesValues[currentSection] < 30) {
                   //todo: handle pages, surahs
                   setState(() {
                     sectionTypesValues[currentSection]++;
                     if (currentSection == 2) {
-                      var matchSurahList = context
-                          .read<EssentialMoshafCubit>()
-                          .swarListForFihris
-                          .where((element) =>
-                              element.number ==
-                              sectionTypesValues[currentSection])
-                          .toList();
+                      var matchSurahList = context.read<EssentialMoshafCubit>().swarListForFihris.where((element) => element.number == sectionTypesValues[currentSection]).toList();
                       if (matchSurahList.isNotEmpty) {
                         surahSection = matchSurahList.first;
                       }
@@ -359,13 +310,7 @@ class _ListenViewState extends State<ListenView> {
                   setState(() {
                     sectionTypesValues[currentSection]--;
                     if (currentSection == 2) {
-                      var matchSurahList = context
-                          .read<EssentialMoshafCubit>()
-                          .swarListForFihris
-                          .where((element) =>
-                              element.number ==
-                              sectionTypesValues[currentSection])
-                          .toList();
+                      var matchSurahList = context.read<EssentialMoshafCubit>().swarListForFihris.where((element) => element.number == sectionTypesValues[currentSection]).toList();
                       if (matchSurahList.isNotEmpty) {
                         surahSection = matchSurahList.first;
                       }
@@ -420,8 +365,7 @@ class _ListenViewState extends State<ListenView> {
     return DropdownButton<SurahFihrisModel>(
         borderRadius: BorderRadius.circular(20),
         hint: Text(context.translate.select_surah),
-        style: context.textTheme.bodyMedium!
-            .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+        style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
         elevation: 6,
         underline: const SizedBox(),
         isDense: true,
@@ -447,8 +391,7 @@ class _ListenViewState extends State<ListenView> {
     return DropdownButton<int>(
         borderRadius: BorderRadius.circular(20),
         hint: Text(context.translate.select_surah),
-        style: context.textTheme.bodyMedium!
-            .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+        style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
         elevation: 6,
         underline: const SizedBox(),
         isDense: true,
@@ -471,8 +414,7 @@ class _ListenViewState extends State<ListenView> {
     return DropdownButton<int>(
         borderRadius: BorderRadius.circular(20),
         hint: Text(context.translate.select_surah),
-        style: context.textTheme.bodyMedium!
-            .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+        style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
         elevation: 6,
         underline: const SizedBox(),
         isDense: true,
@@ -495,8 +437,7 @@ class _ListenViewState extends State<ListenView> {
     return DropdownButton<int>(
         borderRadius: BorderRadius.circular(20),
         hint: Text(context.translate.select_surah),
-        style: context.textTheme.bodyMedium!
-            .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+        style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
         elevation: 6,
         underline: const SizedBox(),
         isDense: true,
@@ -516,9 +457,7 @@ class _ListenViewState extends State<ListenView> {
 
   Card _buildAyahRepeatControls() {
     return Card(
-      color: context.theme.brightness == Brightness.dark
-          ? AppColors.cardBgDark
-          : AppColors.tabBackground,
+      color: context.theme.brightness == Brightness.dark ? AppColors.cardBgDark : AppColors.tabBackground,
       child: Column(
         children: [
           CustomSwitchListTile(
@@ -579,32 +518,17 @@ class _ListenViewState extends State<ListenView> {
     int? ayahEnd;
     if (sectionRepeatType == SectionRepeatType.custom) {
       if (ayatForCustomRange.any((element) => element == null)) {
-        AppConstants.showToast(context,
-            msg: context.translate.please_select_ayat_range_first,
-            color: Colors.red);
+        AppConstants.showToast(context, msg: context.translate.please_select_ayat_range_first, color: Colors.red);
         return;
       } else {
         List<AyahModel> allAyat = context.read<ListeningCubit>().allAyat;
-        ayahStart = allAyat
-            .singleWhere((ayah) =>
-                ayah.numberInSurah == ayatForCustomRange[0] &&
-                ayah.surahNumber == swarForCustomRange[0]!.number!)
-            .number;
-        ayahEnd = allAyat
-            .singleWhere((ayah) =>
-                ayah.numberInSurah == ayatForCustomRange[1] &&
-                ayah.surahNumber == swarForCustomRange[1]!.number!)
-            .number;
+        ayahStart = allAyat.singleWhere((ayah) => ayah.numberInSurah == ayatForCustomRange[0] && ayah.surahNumber == swarForCustomRange[0]!.number!).number;
+        ayahEnd = allAyat.singleWhere((ayah) => ayah.numberInSurah == ayatForCustomRange[1] && ayah.surahNumber == swarForCustomRange[1]!.number!).number;
         debugPrint("ayahStart:$ayahStart, ayahEnd:$ayahEnd");
       }
     }
     context.read<ListeningCubit>().listenToCurrentPage(
-        repeatType: sectionRepeatType,
-        sectionValue:
-            currentSection != 0 ? sectionTypesValues[currentSection] : null,
-        ayatForCustomRange: [ayahStart, ayahEnd],
-        sectionRepeatCount: isTorepeatSection ? sectionRepeatCount : null,
-        ayahRepeatCount: isTorepeatAyah ? ayahRepeatCount : null);
+        repeatType: sectionRepeatType, sectionValue: currentSection != 0 ? sectionTypesValues[currentSection] : null, ayatForCustomRange: [ayahStart, ayahEnd], sectionRepeatCount: isTorepeatSection ? sectionRepeatCount : null, ayahRepeatCount: isTorepeatAyah ? ayahRepeatCount : null);
   }
 }
 
@@ -642,8 +566,7 @@ class _ControlButtonsRowState extends State<ControlButtonsRow> {
                 children: [
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage:
-                        AssetImage(currentReciter.photo.toString()),
+                    backgroundImage: AssetImage(currentReciter.photo.toString()),
                   ),
                   const SizedBox(width: 10),
                   Text(
@@ -688,10 +611,7 @@ class _ControlButtonsRowState extends State<ControlButtonsRow> {
                 const SizedBox(width: 15),
                 //todo: forward icon
                 StreamBuilder<int?>(
-                    stream: context
-                        .read<ListeningCubit>()
-                        .player
-                        .currentIndexStream,
+                    stream: context.read<ListeningCubit>().player.currentIndexStream,
                     builder: (context, snapshot) {
                       var currentIndex = snapshot.data;
                       bool hasNext = false;
@@ -702,51 +622,36 @@ class _ControlButtonsRowState extends State<ControlButtonsRow> {
                         opacity: hasNext ? 1.0 : 0.5,
                         child: IconButton(
                             onPressed: () async {
-                              await context
-                                  .read<ListeningCubit>()
-                                  .player
-                                  .seekToNext();
+                              await context.read<ListeningCubit>().player.seekToNext();
                             },
                             icon: SvgPicture.asset(
                               AppAssets.next,
                               height: 25,
-                              color: context.theme.brightness == Brightness.dark
-                                  ? Colors.white
-                                  : null,
+                              color: context.theme.brightness == Brightness.dark ? Colors.white : null,
                             )),
                       );
                     }),
                 //todo: play icon
-
                 ControlButtons(context.read<ListeningCubit>().player),
                 //todo: previous icon
                 StreamBuilder<int?>(
-                    stream: context
-                        .read<ListeningCubit>()
-                        .player
-                        .currentIndexStream,
+                    stream: context.read<ListeningCubit>().player.currentIndexStream,
                     builder: (context, snapshot) {
                       var currentIndex = snapshot.data;
                       bool hasPrevious = false;
                       if (currentIndex != null) {
-                        hasPrevious =
-                            context.read<ListeningCubit>().player.hasPrevious;
+                        hasPrevious = context.read<ListeningCubit>().player.hasPrevious;
                       }
                       return Opacity(
                         opacity: hasPrevious ? 1.0 : 0.5,
                         child: IconButton(
                             onPressed: () async {
-                              await context
-                                  .read<ListeningCubit>()
-                                  .player
-                                  .seekToPrevious();
+                              await context.read<ListeningCubit>().player.seekToPrevious();
                             },
                             icon: SvgPicture.asset(
                               AppAssets.prev,
                               height: 25,
-                              color: context.theme.brightness == Brightness.dark
-                                  ? Colors.white
-                                  : null,
+                              color: context.theme.brightness == Brightness.dark ? Colors.white : null,
                             )),
                       );
                     }),
@@ -760,9 +665,7 @@ class _ControlButtonsRowState extends State<ControlButtonsRow> {
                     icon: SvgPicture.asset(
                       AppAssets.repeat,
                       height: 17,
-                      color: context.theme.brightness == Brightness.dark
-                          ? Colors.white
-                          : null,
+                      color: context.theme.brightness == Brightness.dark ? Colors.white : null,
                     )),
               ],
             ),
@@ -771,8 +674,7 @@ class _ControlButtonsRowState extends State<ControlButtonsRow> {
         StreamBuilder<Duration>(
             stream: context.read<ListeningCubit>().player.positionStream,
             builder: (context, snapshot) {
-              if (snapshot.data != null &&
-                  context.read<ListeningCubit>().player.duration != null) {
+              if (snapshot.data != null && context.read<ListeningCubit>().player.duration != null) {
                 Duration? currentPosition = snapshot.data;
                 int currentPositonInSeconds = currentPosition!.inSeconds;
                 return Directionality(
@@ -782,20 +684,11 @@ class _ControlButtonsRowState extends State<ControlButtonsRow> {
                     children: [
                       Slider(
                         min: 0,
-                        max: context
-                                .read<ListeningCubit>()
-                                .player
-                                .duration!
-                                .inSeconds +
-                            0.0,
-                        label:
-                            "${currentPosition.inMinutes}:${currentPositonInSeconds % 60}",
+                        max: context.read<ListeningCubit>().player.duration!.inSeconds + 0.0,
+                        label: "${currentPosition.inMinutes}:${currentPositonInSeconds % 60}",
                         value: currentPositonInSeconds + 0.0,
                         onChanged: (seekToVlaue) {
-                          context
-                              .read<ListeningCubit>()
-                              .player
-                              .seek(Duration(seconds: seekToVlaue.round()));
+                          context.read<ListeningCubit>().player.seek(Duration(seconds: seekToVlaue.round()));
                         },
                       ),
                       Positioned(
@@ -809,20 +702,12 @@ class _ControlButtonsRowState extends State<ControlButtonsRow> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                encodeTimestamp(context
-                                    .read<ListeningCubit>()
-                                    .player
-                                    .position),
-                                style: context.textTheme.bodyMedium!.copyWith(
-                                    fontSize: 12, fontWeight: FontWeight.w600),
+                                encodeTimestamp(context.read<ListeningCubit>().player.position),
+                                style: context.textTheme.bodyMedium!.copyWith(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                               Text(
-                                encodeTimestamp(context
-                                    .read<ListeningCubit>()
-                                    .player
-                                    .duration),
-                                style: context.textTheme.bodyMedium!.copyWith(
-                                    fontSize: 12, fontWeight: FontWeight.w600),
+                                encodeTimestamp(context.read<ListeningCubit>().player.duration),
+                                style: context.textTheme.bodyMedium!.copyWith(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -886,8 +771,7 @@ class CountControlWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: context.textTheme.bodyMedium!
-                .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+            style: context.textTheme.bodyMedium!.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
           ),
           const SizedBox(width: 10),
           if (dropDownWidget != null) dropDownWidget!,
@@ -900,15 +784,11 @@ class CountControlWidget extends StatelessWidget {
           Container(
               height: 35,
               decoration: BoxDecoration(
-                color: context.theme.brightness == Brightness.dark
-                    ? AppColors.cardBgActiveDark
-                    : AppColors.beige,
+                color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : AppColors.beige,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Row(
-                children: context.translate.localeName == AppStrings.arabicCode
-                    ? incrementAndDecrement
-                    : incrementAndDecrement.reversed.toList(),
+                children: context.translate.localeName == AppStrings.arabicCode ? incrementAndDecrement : incrementAndDecrement.reversed.toList(),
               ))
         ],
       ),
@@ -917,19 +797,13 @@ class CountControlWidget extends StatelessWidget {
 }
 
 class AyatRangeSelectorWidget extends StatefulWidget {
-  AyatRangeSelectorWidget(
-      {super.key,
-      required this.onCustomRangeChanged,
-      required this.savedSelectedAyat,
-      required this.savedSelectedSwar});
-  void Function(List<SurahFihrisModel?> swar, List<int?> ayat)
-      onCustomRangeChanged;
+  AyatRangeSelectorWidget({super.key, required this.onCustomRangeChanged, required this.savedSelectedAyat, required this.savedSelectedSwar});
+  void Function(List<SurahFihrisModel?> swar, List<int?> ayat) onCustomRangeChanged;
   final List<SurahFihrisModel?> savedSelectedSwar;
   final List<int?> savedSelectedAyat;
 
   @override
-  State<AyatRangeSelectorWidget> createState() =>
-      _AyatRangeSelectorWidgetState();
+  State<AyatRangeSelectorWidget> createState() => _AyatRangeSelectorWidgetState();
 }
 
 class _AyatRangeSelectorWidgetState extends State<AyatRangeSelectorWidget> {
@@ -957,28 +831,19 @@ class _AyatRangeSelectorWidgetState extends State<AyatRangeSelectorWidget> {
   }
 
   Widget _buildAyahSelectorRow(BuildContext context, {required int index}) {
-    List<SurahFihrisModel> allSwar =
-        context.read<EssentialMoshafCubit>().swarListForFihris;
-    List<int> ayatToChooseFrom =
-        selectedSwar[0] == null || selectedSwar[index] == null
-            ? []
-            : index == 1 &&
-                    selectedSwar[0] == selectedSwar[1] &&
-                    selectedAyat[0] != null
-                ? List<int>.generate(
-                    selectedSwar[0]!.count! - selectedAyat[0]! + 1,
-                    (index) => index + selectedAyat[0]!).toList()
-                : List<int>.generate(
-                    selectedSwar[index]!.count!, (index) => index + 1);
+    List<SurahFihrisModel> allSwar = context.read<EssentialMoshafCubit>().swarListForFihris;
+    List<int> ayatToChooseFrom = selectedSwar[0] == null || selectedSwar[index] == null
+        ? []
+        : index == 1 && selectedSwar[0] == selectedSwar[1] && selectedAyat[0] != null
+            ? List<int>.generate(selectedSwar[0]!.count! - selectedAyat[0]! + 1, (index) => index + selectedAyat[0]!).toList()
+            : List<int>.generate(selectedSwar[index]!.count!, (index) => index + 1);
     return Container(
       margin: const EdgeInsets.only(top: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            index == 0
-                ? context.translate.from_surah
-                : context.translate.to_surah,
+            index == 0 ? context.translate.from_surah : context.translate.to_surah,
             style: const TextStyle(fontSize: 13),
           ),
           Expanded(
@@ -986,16 +851,13 @@ class _AyatRangeSelectorWidgetState extends State<AyatRangeSelectorWidget> {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
-                color: context.theme.brightness == Brightness.dark
-                    ? AppColors.cardBgActiveDark
-                    : AppColors.beige,
+                color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : AppColors.beige,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: DropdownButton<SurahFihrisModel>(
                   borderRadius: BorderRadius.circular(20),
                   hint: Text(context.translate.select_surah),
-                  style: context.textTheme.bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                  style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
                   elevation: 6,
                   underline: const SizedBox(),
                   isDense: true,
@@ -1004,22 +866,17 @@ class _AyatRangeSelectorWidgetState extends State<AyatRangeSelectorWidget> {
                   items: (index == 0
                           ? allSwar
                           : selectedSwar[0] != null && index == 1
-                              ? allSwar
-                                  .getRange(allSwar.indexOf(selectedSwar[0]!),
-                                      allSwar.length)
-                                  .toList()
+                              ? allSwar.getRange(allSwar.indexOf(selectedSwar[0]!), allSwar.length).toList()
                               : [])
                       .map((surah) => DropdownMenuItem<SurahFihrisModel>(
                             value: surah,
-                            child: Text('${surah.name}'
-                                .replaceAll(RegExp(r"سورة"), '')),
+                            child: Text('${surah.name}'.replaceAll(RegExp(r"سورة"), '')),
                           ))
                       .toList(),
                   onChanged: (selectedSurah) {
                     setState(() {
                       //* if the new selected surah is equal to previously selected then do nothing.
-                      if (selectedSurah == selectedSwar[index] &&
-                          selectedSwar[index] != null) {
+                      if (selectedSurah == selectedSwar[index] && selectedSwar[index] != null) {
                         return;
                       }
                       //* if the new selected surah is different than previously selected then nullize the ayah number
@@ -1047,17 +904,14 @@ class _AyatRangeSelectorWidgetState extends State<AyatRangeSelectorWidget> {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
-                color: context.theme.brightness == Brightness.dark
-                    ? AppColors.cardBgActiveDark
-                    : AppColors.beige,
+                color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : AppColors.beige,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: DropdownButton<int>(
                   borderRadius: BorderRadius.circular(20),
                   // dropdownColor: context.theme.dividerColor,
                   hint: Text(context.translate.select_ayah),
-                  style: context.textTheme.bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                  style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
                   elevation: 6,
                   isExpanded: true,
                   underline: const SizedBox(),

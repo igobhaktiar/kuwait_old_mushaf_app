@@ -101,7 +101,7 @@ Future<void> init() async {
   final playerHandler = await AudioService.init(
       builder: () => AudioPlayerHandler(player: getItInstance(instanceName: "quranPlayer")),
       config: const AudioServiceConfig(
-        androidNotificationIcon: "@mipmap/launcher_icon",
+        androidNotificationIcon: "mipmap/launcher_icon",
         // androidShowNotificationBadge: fals,
         androidNotificationChannelId: 'com.ryanheise.myapp.channel.audio',
         androidNotificationChannelName: 'Audio playback',
