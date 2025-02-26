@@ -90,17 +90,9 @@ Future<void> init() async {
 
   final InternetConnectionChecker internetConnectionCheckerInstance = InternetConnectionChecker.createInstance(
     addresses: [
-      AddressCheckOption(
-        uri: Uri(
-          scheme: 'https',
-          host: '8.8.8.8',
-        ),
-      ),
+      AddressCheckOption(uri: Uri(host: '8.8.8.8')),
     ],
   );
-
-//   final InternetConnectionChecker internetConnectionCheckerInstance =
-//       InternetConnectionChecker.createInstance();
 
   getItInstance.registerLazySingleton(() => buildTarget);
   final appIntercepters = AppIntercepters();
