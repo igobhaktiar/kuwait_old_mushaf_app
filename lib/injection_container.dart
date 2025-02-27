@@ -47,26 +47,47 @@ Future<void> init() async {
   await Hive.openBox<KhatmahModel>(AppStrings.khatmatBox);
 
   //* CUBITS
-  getItInstance.registerFactory<EssentialMoshafCubit>(() => EssentialMoshafCubit(
-        sharedPreferences: getItInstance(),
-      )..init());
-  getItInstance.registerFactory<LangCubit>(() => LangCubit(sharedPreferences: getItInstance())..init());
-  getItInstance.registerFactory<SearchCubit>(() => SearchCubit(sharedPreferences: getItInstance())..getLastSearch());
-  getItInstance.registerFactory<BookmarksCubit>(() => BookmarksCubit(sharedPreferences: getItInstance())..init());
-  getItInstance.registerFactory<AyatHighlightCubit>(() => AyatHighlightCubit()..init());
-  getItInstance.registerFactory<ThemeCubit>(() => ThemeCubit(sharedPreferences: getItInstance())..init());
+  getItInstance
+      .registerFactory<EssentialMoshafCubit>(() => EssentialMoshafCubit(
+            sharedPreferences: getItInstance(),
+          )..init());
+  getItInstance.registerFactory<LangCubit>(
+      () => LangCubit(sharedPreferences: getItInstance())..init());
+  getItInstance.registerFactory<SearchCubit>(
+      () => SearchCubit(sharedPreferences: getItInstance())..getLastSearch());
+  getItInstance.registerFactory<BookmarksCubit>(
+      () => BookmarksCubit(sharedPreferences: getItInstance())..init());
+  getItInstance
+      .registerFactory<AyatHighlightCubit>(() => AyatHighlightCubit()..init());
+  getItInstance.registerFactory<ThemeCubit>(
+      () => ThemeCubit(sharedPreferences: getItInstance())..init());
   getItInstance.registerFactory<DownloaderCubit>(() => DownloaderCubit(
         dioConsumer: getItInstance(),
         sharedPreferences: getItInstance(),
       ));
 
-  getItInstance.registerFactory<ExternalLibrariesCubit>(() => ExternalLibrariesCubit(dioConsumer: getItInstance(), internetConnectionChecker: getItInstance())..initExternalLibrariesCubit());
+  getItInstance.registerFactory<ExternalLibrariesCubit>(() =>
+      ExternalLibrariesCubit(
+          dioConsumer: getItInstance(),
+          internetConnectionChecker: getItInstance())
+        ..initExternalLibrariesCubit());
 
-  getItInstance.registerFactory<KhatmatCubit>(() => KhatmatCubit(sharedPreferences: getItInstance())..init());
+  getItInstance.registerFactory<KhatmatCubit>(
+      () => KhatmatCubit(sharedPreferences: getItInstance())..init());
 
-  getItInstance.registerFactory<ListeningCubit>(() => ListeningCubit(dioConsumer: getItInstance(), playerHandler: getItInstance(), player: getItInstance(instanceName: "quranPlayer"), sharedPreferences: getItInstance(), internetConnectionChecker: getItInstance())..init());
+  getItInstance.registerFactory<ListeningCubit>(() => ListeningCubit(
+      dioConsumer: getItInstance(),
+      playerHandler: getItInstance(),
+      player: getItInstance(instanceName: "quranPlayer"),
+      sharedPreferences: getItInstance(),
+      internetConnectionChecker: getItInstance())
+    ..init());
 
-  getItInstance.registerFactory<TenReadingsCubit>(() => TenReadingsCubit(dioConsumer: getItInstance(), player: getItInstance(instanceName: "tenReadingsPlayer"), internetConnectionChecker: getItInstance())..init());
+  getItInstance.registerFactory<TenReadingsCubit>(() => TenReadingsCubit(
+      dioConsumer: getItInstance(),
+      player: getItInstance(instanceName: "tenReadingsPlayer"),
+      internetConnectionChecker: getItInstance())
+    ..init());
 
   getItInstance.registerFactory<TafseerCubit>(() => TafseerCubit()..init());
 
@@ -76,11 +97,13 @@ Future<void> init() async {
   initAboutAppFeature();
 
   //* Core
-  getItInstance.registerLazySingleton<DioConsumer>(() => DioConsumer(client: getItInstance()));
+  getItInstance.registerLazySingleton<DioConsumer>(
+      () => DioConsumer(client: getItInstance()));
 
   //* EXTERNAL
   final BuildTarget buildTarget = BuildTarget.PRODUCTION;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   final sharedPreferences = await SharedPreferences.getInstance();
   final player = AudioPlayer();
 
@@ -88,18 +111,21 @@ Future<void> init() async {
 
   player.playbackEventStream.listen((event) {});
 
-  final InternetConnectionChecker internetConnectionCheckerInstance = InternetConnectionChecker.createInstance(
+  final InternetConnectionChecker internetConnectionCheckerInstance =
+      InternetConnectionChecker.createInstance(
     addresses: [
-      AddressCheckOption(uri: Uri(host: '8.8.8.8')),
+      AddressCheckOption(uri: Uri(scheme: 'https', host: '8.8.8.8')),
     ],
   );
 
   getItInstance.registerLazySingleton(() => buildTarget);
   final appIntercepters = AppIntercepters();
   getItInstance.registerLazySingleton(() => sharedPreferences);
-  getItInstance.registerLazySingleton(() => player, instanceName: "quranPlayer");
+  getItInstance.registerLazySingleton(() => player,
+      instanceName: "quranPlayer");
   final playerHandler = await AudioService.init(
-      builder: () => AudioPlayerHandler(player: getItInstance(instanceName: "quranPlayer")),
+      builder: () => AudioPlayerHandler(
+          player: getItInstance(instanceName: "quranPlayer")),
       config: const AudioServiceConfig(
         androidNotificationIcon: "mipmap/launcher_icon",
         // androidShowNotificationBadge: fals,
@@ -112,10 +138,17 @@ Future<void> init() async {
   getItInstance.registerLazySingleton(() => internetConnectionCheckerInstance);
   getItInstance.registerLazySingleton(() => flutterLocalNotificationsPlugin);
 
-  getItInstance.registerLazySingleton(() => tenReadingsPlayer, instanceName: "tenReadingsPlayer");
+  getItInstance.registerLazySingleton(() => tenReadingsPlayer,
+      instanceName: "tenReadingsPlayer");
 
   getItInstance.registerLazySingleton(() => appIntercepters);
-  getItInstance.registerLazySingleton(() => LogInterceptor(request: true, requestBody: true, requestHeader: true, responseBody: true, responseHeader: true, error: true));
+  getItInstance.registerLazySingleton(() => LogInterceptor(
+      request: true,
+      requestBody: true,
+      requestHeader: true,
+      responseBody: true,
+      responseHeader: true,
+      error: true));
 
   getItInstance.registerLazySingleton(() => Dio());
 }

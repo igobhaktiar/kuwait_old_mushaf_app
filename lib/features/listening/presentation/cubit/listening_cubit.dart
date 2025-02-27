@@ -561,6 +561,7 @@ class ListeningCubit extends Cubit<ListeningState> {
       if (!await internetConnectionChecker.hasConnection) {
         isDownloading = false;
         forceStopPlayer();
+        print("no internet connection");
         emit(CheckYourNetworkConnectionState());
         return;
       }
