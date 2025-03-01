@@ -78,13 +78,17 @@
   "do_you_want_to_delete_this_item": "هل تريد مسح {placeholder}؟",
   "@do_you_want_to_delete_this_item": {
     "placeholders": {
-      "placeholder": {}
+      "placeholder": {
+        "type": "String"
+      }
     }
   },
   "do_you_wannt_to_download_the_full_quran_for_reciter": "هل تريد تحميل القرءان بصوت القارئ {reciterName}",
   "@do_you_wannt_to_download_the_full_quran_for_reciter": {
     "placeholders": {
-      "reciterName": {}
+      "reciterName": {
+         "type": "String"
+      }
     }
   },
   "downloading_files_in_the_background": "بدأ تحميل الملفات في الخلفية",

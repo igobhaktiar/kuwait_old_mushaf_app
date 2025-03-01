@@ -78,13 +78,17 @@
   "do_you_want_to_delete_this_item": "Do you want to delete {placeholder}?",
   "@do_you_want_to_delete_this_item": {
     "placeholders": {
-      "placeholder": {}
+      "placeholder": {
+         "type": "String"
+      }
     }
   },
   "do_you_wannt_to_download_the_full_quran_for_reciter": "Do_you_want_to_download_the_full_quran_for {reciterName}",
   "@do_you_wannt_to_download_the_full_quran_for_reciter": {
     "placeholders": {
-      "reciterName": {}
+      "reciterName": {
+         "type": "String"
+      }
     }
   },
   "do_you_want_to_download_all_Quran_Ten_readings_files": "Do you want to download all Quran Ten-readings files?",
