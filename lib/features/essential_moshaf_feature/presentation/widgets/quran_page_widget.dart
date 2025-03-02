@@ -1,13 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 import 'dart:math' show min, max;
-import 'package:path/path.dart' as p;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran_app/config/themes/theme_context.dart';
 import 'package:quran_app/core/enums/moshaf_type_enum.dart';
 import 'package:quran_app/core/utils/app_colors.dart';
 import 'package:quran_app/core/utils/app_strings.dart';
@@ -20,21 +15,21 @@ import 'package:quran_app/features/essential_moshaf_feature/data/models/ayat_swa
 import 'package:quran_app/features/essential_moshaf_feature/presentation/cubit/bottom_sheet_cubit.dart';
 import 'package:quran_app/features/essential_moshaf_feature/presentation/cubit/essential_moshaf_cubit.dart' show EssentialMoshafCubit, EssentialMoshafState;
 import 'package:quran_app/features/essential_moshaf_feature/presentation/widgets/current_page_metadata_widgets.dart';
+import 'package:quran_app/features/essential_moshaf_feature/presentation/widgets/ordinary_moshaf_image.dart';
+import 'package:quran_app/features/essential_moshaf_feature/presentation/widgets/ten_readings_image.dart';
 import 'package:quran_app/features/listening/presentation/cubit/listening_cubit.dart';
 import 'package:quran_app/features/tenReadings/data/models/khelafia_word_model.dart';
 import 'package:quran_app/features/tenReadings/presentation/cubit/tenreadings_cubit.dart';
 
-import '../../../../kqa_platform_service.dart';
-
 class QuranPageWidget extends StatefulWidget {
   const QuranPageWidget({
-    Key? key,
+    super.key,
     required this.index,
     required this.actualWidth,
     required this.actualHeight,
     required this.leftPadding,
     required this.rightPadding,
-  }) : super(key: key);
+  });
 
   final int index;
   final double actualWidth;
@@ -101,7 +96,12 @@ class _QuranPageWidgetState extends State<QuranPageWidget> {
                       child: Container(
                         width: widget.actualWidth,
                         height: MediaQuery.of(context).orientation == Orientation.landscape ? widget.actualWidth / AppConstants.moshafPageAspectRatio : widget.actualHeight,
-                        padding: context.read<EssentialMoshafCubit>().isToShowTopBottomNavListViews ? const EdgeInsets.symmetric(vertical: 35, horizontal: 35) : EdgeInsets.zero,
+                        padding: context.read<EssentialMoshafCubit>().isToShowTopBottomNavListViews
+                            ? const EdgeInsets.symmetric(
+                                vertical: 35,
+                                horizontal: 35,
+                              )
+                            : EdgeInsets.zero,
                         child: Column(
                           children: [
                             Container(
@@ -145,7 +145,6 @@ class _QuranPageWidgetState extends State<QuranPageWidget> {
                                 ),
                               ),
                             ),
-                            // todo: bottom meta data row
                             Container(
                               margin: const EdgeInsets.only(bottom: 10, right: 20, left: 20),
                               child: const Row(
@@ -171,7 +170,13 @@ class _QuranPageWidgetState extends State<QuranPageWidget> {
   }
 
   StatelessWidget checkTenReadingsOrOrdinary(BuildContext context, TenReadingsCubit tenCubit, TenReadingsState tenState2) {
-    return checkScreen(context, tenCubit, tenState2) ? TenReadingsImage(tenCubit: tenCubit, widget: widget, state: tenState2) : OrdinaryMoshafImage(widget: widget);
+    return checkScreen(context, tenCubit, tenState2)
+        ? TenReadingsImage(
+            tenCubit: tenCubit,
+            widget: widget,
+            state: tenState2,
+          )
+        : OrdinaryMoshafImage(widget: widget);
   }
 
   bool checkScreen(BuildContext context, TenReadingsCubit tenCubit, TenReadingsState tenState2) {
@@ -182,7 +187,6 @@ class _QuranPageWidgetState extends State<QuranPageWidget> {
 
   List<Widget> _buildHighlights(BuildContext mainContext, List<AyahSegsModel> lineHighlights, bool isLandscape, {AyahModel? target}) {
     //*scaling factors
-    double topMargin = 0;
 
     double imageWidth = (((widget.actualWidth) / AppConstants.moshafPageAspectRatio) - AppConstants.clippedPortionFromQuranScreen) * AppConstants.moshafPageAspectRatio;
     log("imageWidth:$imageWidth");
@@ -244,6 +248,7 @@ class _QuranPageWidgetState extends State<QuranPageWidget> {
                   // // print("highlight.ayaId= ${highlight.suraId}");
                 },
                 onLongPress: () {
+                  print('long press');
                   if (context.read<EssentialMoshafCubit>().isInTenReadingsMode()) {
                     context.read<EssentialMoshafCubit>().showBottomSheetSections();
                   } else {
@@ -331,189 +336,5 @@ class _QuranPageWidgetState extends State<QuranPageWidget> {
       );
     }
     return kalemaHighlights;
-  }
-}
-
-class OrdinaryMoshafImage extends StatelessWidget {
-  const OrdinaryMoshafImage({
-    super.key,
-    required this.widget,
-  });
-
-  final QuranPageWidget widget;
-
-  Future<File> loadImageAssetAsFile(String assetPath) async {
-    print("5254 Waleed loadImageAssetAsFile assetPath: $assetPath");
-    final ByteData data = await rootBundle.load(assetPath);
-    final Uint8List bytes = data.buffer.asUint8List();
-
-    // Get a temporary directory (you could choose a different directory)
-    final Directory tempDir = await getTemporaryDirectory();
-    // final String filePath = '${tempDir.path}/temppage1.png';
-    String fileName = p.basename(assetPath);
-    final String filePath = '${tempDir.path}/$fileName';
-
-    // Write the bytes to a file
-    final File file = File(filePath);
-    await file.writeAsBytes(bytes);
-
-    return file;
-  }
-
-  Future<Uint8List> loadImageAssetPackAsFile(String filename, String tempFilename) async {
-    const packageName = 'kw.gov.qsa.quranapp';
-    // const filename = 'assets/images/example.png'; // Example asset file path in the other app
-    // const tempFilename = 'example_temp.png'; // Temporary filename in your app
-
-    Uint8List? data = await PlatformService.getAssetFile(packageName, filename);
-    return data!;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    log("5254 Waleed widget.index: ${widget.index}");
-    if (!AppStrings.myDebugMode) {
-      return FutureBuilder<Uint8List>(
-        future: loadImageAssetPackAsFile("all_black_pages/${AppStrings.getAssetPngBlackPagePath2(widget.index + 1)}", "temppage.png"),
-        builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
-          // Check the state of the future
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Return a loader widget or something similar while waiting
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            // Handle errors, maybe show an error message
-            return Text('Error: ${snapshot.error}');
-          } else {
-            // Once the future completes, snapshot.data will contain your Uint8List
-            // Use the Uint8List to build your widget
-            // For example, displaying the image
-            return Image.memory(
-              snapshot.data!,
-              color: context.isDarkMode ? Colors.white : null,
-              height: widget.actualWidth / AppConstants.moshafPageAspectRatio,
-              fit: MediaQuery.of(context).orientation == Orientation.landscape ? BoxFit.fitWidth : null,
-            );
-          }
-        },
-      );
-    } else {
-      return Image.asset(
-        AppStrings.getAssetPngBlackPagePath(widget.index + 1),
-        height: widget.actualWidth / AppConstants.moshafPageAspectRatio,
-        color: context.isDarkMode ? Colors.white : null,
-        errorBuilder: (BuildContext context, Object object, StackTrace? stackTrace) {
-          return Text(
-            "",
-          );
-        },
-        fit: MediaQuery.of(context).orientation == Orientation.landscape ? BoxFit.fitWidth : null,
-      );
-    }
-  }
-}
-
-class TenReadingsImage extends StatelessWidget {
-  const TenReadingsImage({super.key, required this.tenCubit, required this.widget, required this.state});
-
-  final TenReadingsCubit tenCubit;
-  final QuranPageWidget widget;
-  final TenReadingsState state;
-
-  Future<File> loadImageAssetAsFile(String assetPath) async {
-    print("5254 Waleed loadImageAssetAsFile assetPath: $assetPath");
-    final ByteData data = await rootBundle.load(assetPath);
-    final Uint8List bytes = data.buffer.asUint8List();
-
-    // Get a temporary directory (you could choose a different directory)
-    final Directory tempDir = await getTemporaryDirectory();
-    // final String filePath = '${tempDir.path}/temppage1.png';
-    String fileName = p.basename(assetPath);
-    final String filePath = '${tempDir.path}/$fileName';
-
-    // Write the bytes to a file
-    final File file = File(filePath);
-    await file.writeAsBytes(bytes);
-
-    return file;
-  }
-
-  // Future<File> loadImageAssetPackAsFile(String filename, String tempFilename) async {
-  //   const packageName = 'kw.gov.qsa.quranapp';
-  //   // const filename = 'assets/images/example.png'; // Example asset file path in the other app
-  //   // const tempFilename = 'example_temp.png'; // Temporary filename in your app
-  //   print ("5254 Waleed filename: $filename");
-  //   File? file = await PlatformService.getAssetFile(packageName, filename, tempFilename);
-  //   return file!;
-  // }
-  Future<Uint8List> loadImageAssetPackAsFile(String filename, String tempFilename) async {
-    const packageName = 'kw.gov.qsa.quranapp';
-    // const filename = 'assets/images/example.png'; // Example asset file path in the other app
-    // const tempFilename = 'example_temp.png'; // Temporary filename in your app
-    print("5254 Waleed filename: $filename");
-    Uint8List? data = await PlatformService.getAssetFile(packageName, filename);
-    return data!;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!AppStrings.myDebugMode) {
-      return FutureBuilder<Uint8List>(
-        // future: loadImageAssetAsFile("assets/colored/${AppStrings.getColoredImageFileName(widget.index + 1)}"),
-        future: loadImageAssetPackAsFile("colored/${AppStrings.getColoredImageFileName(widget.index + 1)}", "tempcc.png"),
-        builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
-          // Check the state of the future
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Return a loader widget or something similar while waiting
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            // Handle errors, maybe show an error message
-            return Text('Error: ${snapshot.error}');
-          } else {
-            // Once the future completes, snapshot.data will contain your File
-            // Use the File to build your widget
-            // For example, displaying the image
-            return Image.memory(
-              snapshot.data!,
-              key: const Key('tenReadingsquranImage'),
-              color: context.isDarkMode ? Colors.white : null,
-              height: context.width / AppConstants.moshafPageAspectRatio,
-              fit: MediaQuery.of(context).orientation == Orientation.landscape ? BoxFit.fitWidth : null,
-            );
-          }
-        },
-      );
-    } else {
-      return Image.asset(
-        "assets/colored/${AppStrings.getColoredImageFileName(widget.index + 1)}",
-        key: const Key('tenReadingsquranImage'),
-        color: context.isDarkMode ? Colors.white : null,
-        height: context.width / AppConstants.moshafPageAspectRatio,
-        fit: MediaQuery.of(context).orientation == Orientation.landscape ? BoxFit.fitWidth : null,
-      );
-    }
-
-    // File? f = loadImageAssetAsFile ("assets/colored/${AppStrings.getColoredImageFileName(widget.index + 1)}") as File;
-    // return Image.asset("assets/colored/${AppStrings.getColoredImageFileName(widget.index + 1)}",
-    //   key: const Key('tenReadingsquranImage'),
-    //   color: context.isDarkMode ? Colors.white : null,
-    //   height: context.width / AppConstants.moshafPageAspectRatio,
-    //   fit: MediaQuery.of(context).orientation == Orientation.landscape
-    //       ? BoxFit.fitWidth
-    //       : null,
-    // );
-    // return Image.file(
-    //   tenCubit.coloredImagesSubFolderPath != '' &&
-    //           File("${tenCubit.coloredImagesSubFolderPath}${AppStrings.getColoredImageFileName(widget.index + 1)}")
-    //               .existsSync()
-    //       ? File(
-    //           "${tenCubit.coloredImagesSubFolderPath}${AppStrings.getColoredImageFileName(widget.index + 1)}")
-    //       : (state as TenreadingsServicesLoaded).coloredImageFile!,
-    //   key: const Key('tenReadingsquranImage'),
-    //   color: context.isDarkMode ? Colors.white : null,
-    //   height: context.width / AppConstants.moshafPageAspectRatio,
-    //   fit: MediaQuery.of(context).orientation == Orientation.landscape
-    //       ? BoxFit.fitWidth
-    //       : null,
-    // );
   }
 }

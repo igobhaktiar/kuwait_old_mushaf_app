@@ -8,8 +8,7 @@ import 'package:quran_app/core/utils/app_strings.dart' show AppStrings;
 import 'package:quran_app/core/utils/assets_manager.dart' show AppAssets;
 import 'package:quran_app/core/utils/encode_arabic_digits.dart';
 import 'package:quran_app/core/utils/mediaquery_values.dart';
-import 'package:quran_app/features/essential_moshaf_feature/presentation/cubit/essential_moshaf_cubit.dart'
-    show EssentialMoshafCubit, EssentialMoshafState;
+import 'package:quran_app/features/essential_moshaf_feature/presentation/cubit/essential_moshaf_cubit.dart' show EssentialMoshafCubit, EssentialMoshafState;
 
 import '../../data/models/ayat_swar_models.dart';
 
@@ -19,14 +18,13 @@ class CurrentSurahFrameWidget extends StatelessWidget {
   final AyahModel? customAyah;
   final double? customWidth;
   const CurrentSurahFrameWidget({
-    Key? key,
+    super.key,
     this.customAyah,
     this.customWidth,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
-    final isToShowFlyingLayers =
-        EssentialMoshafCubit.get(context).isToShowAppBar;
+    final isToShowFlyingLayers = EssentialMoshafCubit.get(context).isToShowAppBar;
     return BlocBuilder<EssentialMoshafCubit, EssentialMoshafState>(
       builder: (BuildContext context, EssentialMoshafState state) {
         final cubit = EssentialMoshafCubit.get(context);
@@ -44,9 +42,7 @@ class CurrentSurahFrameWidget extends StatelessWidget {
                 SvgPicture.asset(
                   AppAssets.pageMetadataFrame,
                   width: customWidth ?? 114,
-                  color: context.theme.brightness == Brightness.dark
-                      ? AppColors.cardBgActiveDark
-                      : null,
+                  color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : null,
                   // color: Colors.red,
                   fit: BoxFit.fitWidth,
                 ),
@@ -54,9 +50,7 @@ class CurrentSurahFrameWidget extends StatelessWidget {
                   height: customAyah != null ? 30 : 25,
                   alignment: Alignment.center,
                   child: SvgPicture.asset(
-                    AppAssets.getSurahName(customAyah != null
-                        ? customAyah!.surahNumber!
-                        : cubit.currentSurahModel.number!),
+                    AppAssets.getSurahName(customAyah != null ? customAyah!.surahNumber! : cubit.currentSurahModel.number!),
                     height: 17,
                     color: context.theme.primaryIconTheme.color,
                   ),
@@ -82,8 +76,7 @@ class CurrentJuzFrameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isToShowFlyingLayers =
-        EssentialMoshafCubit.get(context).isToShowAppBar;
+    final isToShowFlyingLayers = EssentialMoshafCubit.get(context).isToShowAppBar;
     return BlocBuilder<EssentialMoshafCubit, EssentialMoshafState>(
       builder: (BuildContext context, EssentialMoshafState state) {
         final cubit = EssentialMoshafCubit.get(context);
@@ -101,9 +94,7 @@ class CurrentJuzFrameWidget extends StatelessWidget {
                 SvgPicture.asset(
                   AppAssets.pageMetadataFrame,
                   width: customWidth ?? 114,
-                  color: context.theme.brightness == Brightness.dark
-                      ? AppColors.cardBgActiveDark
-                      : null,
+                  color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : null,
                   fit: BoxFit.fitWidth,
                 ),
                 Container(
@@ -134,8 +125,7 @@ class CurrentHizbFrameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isToShowFlyingLayers =
-        EssentialMoshafCubit.get(context).isToShowAppBar;
+    final isToShowFlyingLayers = EssentialMoshafCubit.get(context).isToShowAppBar;
     return BlocBuilder<EssentialMoshafCubit, EssentialMoshafState>(
       builder: (BuildContext context, EssentialMoshafState state) {
         final cubit = EssentialMoshafCubit.get(context);
@@ -156,9 +146,7 @@ class CurrentHizbFrameWidget extends StatelessWidget {
                 SvgPicture.asset(
                   AppAssets.pageMetadataFrame,
                   width: 114,
-                  color: context.theme.brightness == Brightness.dark
-                      ? AppColors.cardBgActiveDark
-                      : null,
+                  color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : null,
                   // color: Colors.red,
                   fit: BoxFit.fitWidth,
                 ),
@@ -186,8 +174,7 @@ class CurrentPageFrameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isToShowFlyingLayers =
-        EssentialMoshafCubit.get(context).isToShowAppBar;
+    final isToShowFlyingLayers = EssentialMoshafCubit.get(context).isToShowAppBar;
     return BlocBuilder<EssentialMoshafCubit, EssentialMoshafState>(
       builder: (BuildContext context, EssentialMoshafState state) {
         final cubit = EssentialMoshafCubit.get(context);
@@ -202,9 +189,7 @@ class CurrentPageFrameWidget extends StatelessWidget {
               SvgPicture.asset(
                 AppAssets.pageMetadataFrame,
                 width: 114,
-                color: context.theme.brightness == Brightness.dark
-                    ? AppColors.cardBgActiveDark
-                    : null,
+                color: context.theme.brightness == Brightness.dark ? AppColors.cardBgActiveDark : null,
                 // color: Colors.red,
                 fit: BoxFit.fitWidth,
               ),
@@ -214,13 +199,7 @@ class CurrentPageFrameWidget extends StatelessWidget {
                 child: Text(
                   encodeToArabicNumbers(inputInteger: cubit.currentPage + 1),
                   // encodeToArabicNumbers(inputInteger: cubit.currentPage + 1),
-                  style: TextStyle(
-                      color: context.theme.brightness == Brightness.dark
-                          ? AppColors.white
-                          : Colors.black,
-                      fontSize: 16,
-                      fontFamily: AppStrings.uthmanyFontFamily,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: context.theme.brightness == Brightness.dark ? AppColors.white : Colors.black, fontSize: 16, fontFamily: AppStrings.uthmanyFontFamily, fontWeight: FontWeight.bold),
                 ),
               ),
             ],

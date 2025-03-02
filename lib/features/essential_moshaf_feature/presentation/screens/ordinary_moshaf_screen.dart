@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +11,6 @@ import 'package:quran_app/config/themes/theme_context.dart';
 import 'package:quran_app/core/utils/app_colors.dart';
 import 'package:quran_app/core/utils/constants.dart';
 import 'package:quran_app/core/utils/mediaquery_values.dart';
-import 'package:quran_app/core/utils/slide_pagee_transition.dart';
 import 'package:quran_app/features/bookmarks/presentation/cubit/bookmarks_cubit.dart';
 import 'package:quran_app/features/bookmarks/presentation/screens/theme_cubit.dart';
 import 'package:quran_app/features/bookmarks/presentation/widgets/saved_bookmarks_dialog.dart';
@@ -26,10 +24,8 @@ import 'package:quran_app/features/essential_moshaf_feature/presentation/widgets
 import 'package:quran_app/features/khatmat/presentation/screens/khatmat/khatmat_screen.dart';
 import 'package:quran_app/features/listening/presentation/cubit/listening_cubit.dart' show CheckYourNetworkConnectionState, NavigateToCurrentAyahPageState, ListeningCubit, ListeningState;
 import 'package:quran_app/features/main/presentation/screens/settings_screens/root_app.dart' show RootApp;
-import 'package:quran_app/features/splash/presentation/screens/cover_screen.dart';
 import 'package:quran_app/injection_container.dart' as di;
 import 'package:quran_app/l10n/localization_context.dart';
-import 'package:quran_app/main.dart';
 import 'package:quran_app/notification_service.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -40,7 +36,7 @@ import '../../../tenReadings/presentation/dialogs/app_needs_update_dialog.dart';
 class OrdinaryMoshafScreen extends StatefulWidget {
   final int? page;
 
-  const OrdinaryMoshafScreen({this.page, Key? key}) : super(key: key);
+  const OrdinaryMoshafScreen({this.page, super.key});
 
   @override
   State<OrdinaryMoshafScreen> createState() => _OrdinaryMoshafScreenState();
