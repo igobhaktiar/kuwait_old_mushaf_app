@@ -2,7 +2,7 @@ name: quran_app
 description: "تطبيق مصحف القراءات العشر يمكنك من قراءة القرءان الكريم ومعرفة
   الكلمات الخلافية وطريقة نطقها في القراءات المختلفة ."
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: ^3.0.0
